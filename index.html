@@ -38,12 +38,13 @@
 
 
     <script>
+        var btn = getInputValue('submit');
+        var inputValue = getInputValue('search');
+
         function getInputValue(id) {
             return document.getElementById(id);
         }
 
-        let btn = getInputValue('submit');
-        let inputValue = getInputValue('search');
         btn.addEventListener('click', function () {
             console.log(inputValue.value);
             temperature()
@@ -51,18 +52,18 @@
 
 
         function temperature() {
-            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputValue.value +
-                    '&appid=ab9b65ffebc3f4189c242d509d90ce5c')
-                .then(Response => Response.json())
+            fetch(
+                    `http://api.openweathermap.org/data/2.5/weather?q=${inputValue.value}&appid=ab9b65ffebc3f4189c242d509d90ce5c`)
+                .then(res => res.json())
                 .then(data => {
-                    const city_name = data['name']
-                    const temperature = data['main']['temp']
-                    const weather = data['weather'][0]
-                    const getIcon = `${weather.icon}`
+                    const city_name = data['name'];
+                    const temperature = data['main']['temp'];
+                    const weather = data['weather'][0];
+                    const getIcon = weather.icon;
                     console.log(getIcon);
                     getInputValue('name').innerText = city_name;
                     getInputValue('temperature').innerText = temperature;
-                    getInputValue('lead').innerText = `${weather.main}`;
+                    getInputValue('lead').innerText = weather.main;
                     getInputValue('icon').src = "https://openweathermap.org/img/wn/" + getIcon + ".png";
                     console.log(data);
                 })
