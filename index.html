@@ -51,7 +51,7 @@
 
 
         function temperature() {
-            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + inputValue.value +
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputValue.value +
                     '&appid=ab9b65ffebc3f4189c242d509d90ce5c')
                 .then(Response => Response.json())
                 .then(data => {
